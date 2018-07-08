@@ -174,8 +174,8 @@ COPY ./Data /home/$USER/Data</code></pre>
 <pre><code>source(&quot;Analysis/hello.world.R&quot;)</code></pre>
 <p>You will see that you can see the Analysis and Data folder but there are two problems.</p>
 <ol style="list-style-type: decimal">
-<li>In order to write to a file within Docker (through rstudio) you need to have the right userid. With these rocker images you can get that by specifying -e USERID=$UID in the run command. Then you can write and you can make changes to files and save them within the container.</li>
-<li>It’s all well and good to write to the local container but this data won’t be permanent. We can write our output back to the host directory by mounting a host directory as a volume on the container with -v /full/path/to/dir . This is also useful in development as you can make changes in your permanent host folder which are then immediately available on the container without rebuilding it.</li>
+<li><p>In order to write to a file within Docker (through rstudio) you need to have the right userid. With these rocker images you can get that by specifying -e USERID=$UID in the run command. Then you can write and you can make changes to files and save them within the container.</p></li>
+<li><p>It’s all well and good to write to the local container but this data won’t be permanent. We can write our output back to the host directory by mounting a host directory as a volume on the container with -v /full/path/to/dir . This is also useful in development as you can make changes in your permanent host folder which are then immediately available on the container without rebuilding it.</p></li>
 </ol>
 <p>Before we fix the problem we need to stop the container that’s running (it’s no good for us):</p>
 <pre><code>sudo docker stop hello-world</code></pre>
@@ -187,10 +187,28 @@ sudo docker run -d --rm -p 28787:8787 --name hello-world2 -e USERID=$UID -e PASS
 <p>Finally, go back to the command line once more. Type <code>ls Data</code> and you should see the output file there also.</p>
 <p>One more thing. In the rstudio window, open up <code>Analysis/hello.world.R</code> add a line to the bottom - any command you want and save it and run it.</p>
 <p>Final question - if I check the contents of <code>Analysis/hello.world.R</code> on the command line (i.e. back on the host) will it have your new line? Why?</p>
-<div id="one-last-challenge" class="section level3">
-<h3>One last challenge:</h3>
-<p>(Stop the old container first). Now run it again, but set it up so you can make changes into hello.world.R on the command line and immediately have them show up and work in Rstudio.</p>
 </div>
+<div id="further-exercises" class="section level2">
+<h2>Further exercises</h2>
+<ul>
+<li>Pass environment variables (-e) to
+<ul>
+<li>give you permissions to save changes to <code>hello-world.R</code></li>
+<li>change <code>username</code> and <code>password</code> to something more secure</li>
+</ul></li>
+<li>Save your data
+<ul>
+<li>Save the output data back to your laptop by mounting directory (-V)</li>
+</ul></li>
+<li>Set yourself up so you can make changes in hello.world.R on your local directory and immediately have them show up and work in the container Rstudio. When might this be useful?</li>
+</ul>
+<p>Other things to try:</p>
+<ul>
+<li>Can you set the <code>username</code> and <code>password</code> in the Dockerfile instead of the run command?</li>
+<li><code>docker stop</code> your container and use <code>docker ps</code> to confirm it’s gone.</li>
+<li>Run two versions of the container at the same time. What runtime settings need to change?</li>
+<li>Change the <code>requirements.R</code> (add/remove a library) and rebuild. Does it rebuild all the layers? Why?</li>
+</ul>
 </div>
 
 

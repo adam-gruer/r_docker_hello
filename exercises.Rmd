@@ -91,6 +91,21 @@ One more thing. In the rstudio window, open up `Analysis/hello.world.R` add a li
 
 Final question - if I check the contents of `Analysis/hello.world.R` on the command line (i.e. back on the host) will it have your new line? Why?
 
-### One last challenge:
+## Further exercises
 
-(Stop the old container first). Now run it again, but set it up so you can make changes into hello.world.R on the command line and immediately have them show up and work in Rstudio.
+* Pass environment variables (-e) to 
+    + give you permissions to save changes to `hello-world.R`
+    + change `username` and `password` to something more secure
+
+* Save your data
+    + Save the output data back to your laptop by mounting directory (-V)
+* Set yourself up so you can make changes in hello.world.R on your local directory and immediately have them show up and work in the container Rstudio.  When might this be useful?
+
+Other things to try:
+
+* Can you set the `username` and `password` in the Dockerfile instead of the run command?
+* `docker stop` your container and use `docker ps` to confirm it's gone.
+* Run two versions of the container at the same time.  What runtime settings need to change?
+* Change the `requirements.R` (add/remove a library) and rebuild.  Does it rebuild all the layers? Why?
+
+
