@@ -1,5 +1,8 @@
 # Base image https://hub.docker.com/u/rocker/
-FROM rocker/rstudio
+FROM rocker/shiny
+
+# install requirements for googleway
+RUN apt-get update && apt-get install -y libjq-dev
 
 ## Install extra R packages using requirements.R
 ## Specify requirements as R install commands e.g.
@@ -17,8 +20,8 @@ ENV USER rstudio
 
 ## Copy your working files over
 ## The $USER defaults to `rstudio` but you can change this at runtime
-COPY ./Analysis /home/$USER/Analysis
-COPY ./Data /home/$USER/Data
+COPY ./shiny /srv/shiny-server
+COPY ./env_vars/.Renviron /home/$USER/.Renviron
 
 
 
